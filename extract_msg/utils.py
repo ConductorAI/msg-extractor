@@ -222,7 +222,7 @@ def decodeRfc2047(encoded: str) -> str:
     # decode_header header will return a string instead of bytes for the first
     # object if the input is not encoded, something that is frustrating.
     return ''.join(
-        x[0].decode(x[1] or 'raw-unicode-escape') if isinstance(x[0], bytes) else x[0]
+        x[0].decode('gb18030' if x[1] == 'gb2312' else x[1] or 'raw-unicode-escape') if isinstance(x[0], bytes) else x[0]
         for x in email.header.decode_header(encoded)
     )
 
